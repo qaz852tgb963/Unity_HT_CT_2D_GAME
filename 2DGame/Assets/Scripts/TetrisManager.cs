@@ -2,6 +2,8 @@
 
 public class TetrisManager : MonoBehaviour
 {
+    #region 欄位
+
     [Header("掉落時間"), Range(0.1f, 3)]
     public float iSpeed = 1.5f;
 
@@ -23,6 +25,66 @@ public class TetrisManager : MonoBehaviour
     public AudioClip aClearAudio;
     public AudioClip aGameOverAudio;
 
+    #endregion
 
+    #region 事件
 
+    private void Start()
+    {
+
+    }
+
+    #endregion
+
+    #region 方法
+
+    /// <summary>
+    /// 生成俄羅斯方塊
+    /// </summary>
+    private void GenerateBlock()
+    {
+
+    }
+
+    /// <summary>
+    /// 添加分數
+    /// </summary>
+    /// <param name="iScore">增加的分數</param>
+    public void AddScore(int iScore)
+    {
+
+    }
+
+    /// <summary>
+    /// 遊戲時間
+    /// </summary>
+    private void GameTime()
+    {
+
+    }
+
+    /// <summary>
+    /// 遊戲結束
+    /// </summary>
+    private void GameOver()
+    {
+
+    }
+
+    /// <summary>
+    /// 重新遊戲
+    /// </summary>
+    public void ReplayGame()
+    {
+
+    }
+
+    /// <summary>
+    /// 離開遊戲
+    /// </summary>
+    public void LeaveGame()
+    {
+
+    }
+    #endregion
 }
