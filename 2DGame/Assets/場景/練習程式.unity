@@ -147,18 +147,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 110079684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ddd5f8d864cfc641b86ca1035e45c8c, type: 3}
+  m_Script: {fileID: 11500000, guid: e1e179e341997734b8a6c99fa418f3fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iSize: 0
-  iFloat: -3.4028235e+38
-  sName: 
-  bHave: 0
-  colorA: {r: 255, g: 255, b: 255, a: 0.5}
-  v2A: {x: 1, y: 1}
-  v2B: {x: 0, y: 0}
-  AC1: {fileID: 0}
-  imgA: {fileID: 0}
 --- !u!212 &110079686
 SpriteRenderer:
   m_ObjectHideFlags: 0
