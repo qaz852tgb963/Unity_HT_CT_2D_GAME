@@ -25,25 +25,43 @@ public class TetrisManager : MonoBehaviour
     public AudioClip aClearAudio;
     public AudioClip aGameOverAudio;
 
+    [Header("下一顆")]
+    public Transform traNext;
+    [Header("畫布")]
+    public Transform traCanvas;
+
+    public int iNextIndex;
     #endregion
 
     #region 事件
 
     private void Start()
     {
-
+        GenerateBlock();
     }
 
     #endregion
 
     #region 方法
+    /// <summary>
+    /// 開始遊戲
+    /// </summary>
+    public void StartGame()
+    {
+        GameObject IndexGO = traNext.GetChild(iNextIndex).gameObject;
+        GameObject InstantGO = Instantiate(IndexGO, traCanvas);
+        InstantGO.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,380);
+        IndexGO.SetActive(false);
+        GenerateBlock();
+    }
 
     /// <summary>
     /// 生成俄羅斯方塊
     /// </summary>
     private void GenerateBlock()
     {
-
+        iNextIndex = Random.Range(0, 7);
+        traNext.GetChild(iNextIndex).gameObject.SetActive(true);
     }
 
     /// <summary>
