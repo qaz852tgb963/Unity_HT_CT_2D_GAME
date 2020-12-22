@@ -31,6 +31,11 @@ public class TetrisManager : MonoBehaviour
     public Transform traCanvas;
 
     public int iNextIndex;
+
+    [Header("生成的方塊")]
+    public RectTransform RTFInstant;
+
+    public float timer;
     #endregion
 
     #region 事件
@@ -40,19 +45,55 @@ public class TetrisManager : MonoBehaviour
         GenerateBlock();
     }
 
+    private void Update()
+    {
+        CtrlBlock();
+    }
+
     #endregion
 
     #region 方法
+
+    public void CtrlBlock()
+    {
+        timer += Time.deltaTime;
+        if (RTFInstant)
+        {
+            if (timer >= iSpeed)
+            {
+                timer = 0;
+                RTFInstant.anchoredPosition -= new Vector2(0, 50);
+            }
+
+            if (Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                RTFInstant.anchoredPosition += new Vector2(50,0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                RTFInstant.anchoredPosition -= new Vector2(50,0);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                RTFInstant.eulerAngles += new Vector3(0,0,90);
+            }
+        }
+    }
+
     /// <summary>
     /// 開始遊戲
     /// </summary>
     public void StartGame()
     {
-        GameObject IndexGO = traNext.GetChild(iNextIndex).gameObject;
-        GameObject InstantGO = Instantiate(IndexGO, traCanvas);
-        InstantGO.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,380);
-        IndexGO.SetActive(false);
+        GameObject GOIndex = traNext.GetChild(iNextIndex).gameObject;
+        GameObject GOInstant = Instantiate(GOIndex, traCanvas);
+        GOInstant.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 380);
+        GOIndex.SetActive(false);
         GenerateBlock();
+
+        RTFInstant = GOInstant.GetComponent<RectTransform>();
     }
 
     /// <summary>
