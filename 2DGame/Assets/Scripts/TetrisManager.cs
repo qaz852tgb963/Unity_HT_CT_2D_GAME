@@ -65,19 +65,37 @@ public class TetrisManager : MonoBehaviour
                 RTFInstant.anchoredPosition -= new Vector2(0, 50);
             }
 
-            if (Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow))
+            #region 控制按鍵
+            if (RTFInstant.anchoredPosition.x < 250)
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
-                RTFInstant.anchoredPosition += new Vector2(50,0);
+                RTFInstant.anchoredPosition += new Vector2(50, 0);
             }
 
-            if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow))
+            if (RTFInstant.anchoredPosition.x > -250)
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                RTFInstant.anchoredPosition -= new Vector2(50,0);
+                RTFInstant.anchoredPosition -= new Vector2(50, 0);
             }
-            
+
             if (Input.GetKeyDown(KeyCode.W))
             {
-                RTFInstant.eulerAngles += new Vector3(0,0,90);
+                RTFInstant.eulerAngles += new Vector3(0, 0, 90);
+            }
+
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                iSpeed = 0.2f;
+            }
+            else
+            {
+                iSpeed = 1.5f;
+            }
+            #endregion
+
+            if (RTFInstant.anchoredPosition.y == -270)
+            {
+                StartGame();
             }
         }
     }
