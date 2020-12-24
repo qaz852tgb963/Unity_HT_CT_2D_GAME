@@ -34,8 +34,19 @@ public class TetrisManager : MonoBehaviour
 
     [Header("生成的方塊")]
     public RectTransform RTFInstant;
+    [Header("生成的方塊位置")]
+    public Vector2[] V2Block_L = {
+        new Vector2(0,375),
+        new Vector2(0,375),
+        new Vector2(15,360),
+        new Vector2(15,360),
+        new Vector2(0,375),
+        new Vector2(15,360),
+        new Vector2(0,360)
+    };
 
     public float timer;
+    int iMinCtrl = 30;
     #endregion
 
     #region 事件
@@ -57,26 +68,31 @@ public class TetrisManager : MonoBehaviour
     public void CtrlBlock()
     {
         timer += Time.deltaTime;
+
         if (RTFInstant)
         {
             if (timer >= iSpeed)
             {
                 timer = 0;
-                RTFInstant.anchoredPosition -= new Vector2(0, 50);
+                RTFInstant.anchoredPosition -= new Vector2(0, iMinCtrl);
             }
 
             #region 控制按鍵
-            if (RTFInstant.anchoredPosition.x < 250)
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                RTFInstant.anchoredPosition += new Vector2(50, 0);
-            }
+            Tetris TetBlock = RTFInstant.GetComponent<Tetris>();
 
-            if (RTFInstant.anchoredPosition.x > -250)
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                RTFInstant.anchoredPosition -= new Vector2(50, 0);
-            }
+            //if (RTFInstant.anchoredPosition.x < 225)
+            if (TetBlock.bHitWallRight == false)
+                if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    RTFInstant.anchoredPosition += new Vector2(iMinCtrl, 0);
+                }
+
+            //if (RTFInstant.anchoredPosition.x > -225)
+            if (TetBlock.bHitWallLeft == false)
+                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    RTFInstant.anchoredPosition -= new Vector2(iMinCtrl, 0);
+                }
 
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -93,7 +109,7 @@ public class TetrisManager : MonoBehaviour
             }
             #endregion
 
-            if (RTFInstant.anchoredPosition.y == -270)
+            if (RTFInstant.anchoredPosition.y <= -270)
             {
                 StartGame();
             }
@@ -107,7 +123,7 @@ public class TetrisManager : MonoBehaviour
     {
         GameObject GOIndex = traNext.GetChild(iNextIndex).gameObject;
         GameObject GOInstant = Instantiate(GOIndex, traCanvas);
-        GOInstant.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 380);
+        GOInstant.GetComponent<RectTransform>().anchoredPosition = V2Block_L[iNextIndex];
         GOIndex.SetActive(false);
         GenerateBlock();
 
