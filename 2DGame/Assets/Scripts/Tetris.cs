@@ -15,7 +15,6 @@ public class Tetris : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
 
         #region 畫出輔助線
 
@@ -30,7 +29,9 @@ public class Tetris : MonoBehaviour
             length_NOW = length90;
         }
 
+        Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector3.right * length_NOW);
+        Gizmos.color = Color.yellow;
         Gizmos.DrawRay(transform.position, Vector3.left * length_NOW);
 
         #endregion

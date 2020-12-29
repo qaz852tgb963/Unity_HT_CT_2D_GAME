@@ -109,7 +109,7 @@ public class TetrisManager : MonoBehaviour
             }
             #endregion
 
-            if (RTFInstant.anchoredPosition.y <= -270)
+            if (RTFInstant.anchoredPosition.y <= -300)
             {
                 StartGame();
             }
