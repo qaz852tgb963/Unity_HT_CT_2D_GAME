@@ -8896,7 +8896,7 @@ PrefabInstance:
     - target: {fileID: 1526738072064285401, guid: f093e83539ab13044be2f485c25b854a,
         type: 3}
       propertyPath: length90
-      value: 0.8
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3459248385395334570, guid: f093e83539ab13044be2f485c25b854a,
         type: 3}
@@ -31454,8 +31454,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 301.5, y: 5.02}
-  m_SizeDelta: {x: 53, y: 680}
+  m_AnchoredPosition: {x: 301.5, y: 28}
+  m_SizeDelta: {x: 53, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1471628859
 MonoBehaviour:
@@ -31517,7 +31517,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 53, y: 680}
+  m_Size: {x: 53, y: 720}
   m_EdgeRadius: 0
 --- !u!1 &1473354878
 GameObject:
@@ -31929,7 +31929,22 @@ PrefabInstance:
     - target: {fileID: -8817381046822113438, guid: 0ba085825d08854498193497f497371d,
         type: 3}
       propertyPath: length90
-      value: 0.8
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8817381046822113438, guid: 0ba085825d08854498193497f497371d,
+        type: 3}
+      propertyPath: length0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8817381046822113438, guid: 0ba085825d08854498193497f497371d,
+        type: 3}
+      propertyPath: length_NOW
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8817381046822113438, guid: 0ba085825d08854498193497f497371d,
+        type: 3}
+      propertyPath: length_NOW_Floor
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6178716744249096330, guid: 0ba085825d08854498193497f497371d,
         type: 3}
@@ -34297,8 +34312,8 @@ MonoBehaviour:
   iNextIndex: 0
   RTFInstant: {fileID: 0}
   V2Block_L:
-  - {x: 0, y: 375}
-  - {x: 0, y: 375}
+  - {x: 0, y: 360}
+  - {x: 0, y: 360}
   - {x: 15, y: 360}
   - {x: 15, y: 360}
   - {x: 0, y: 375}
@@ -37596,8 +37611,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -301.5, y: 5.02}
-  m_SizeDelta: {x: 53, y: 680}
+  m_AnchoredPosition: {x: -301.5, y: 28.000002}
+  m_SizeDelta: {x: 53, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1798796613
 MonoBehaviour:
@@ -37659,7 +37674,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 53, y: 680}
+  m_Size: {x: 53, y: 720}
   m_EdgeRadius: 0
 --- !u!1 &1799129338
 GameObject:
@@ -38996,8 +39011,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: -347.45}
-  m_SizeDelta: {x: 660, y: 25}
+  m_AnchoredPosition: {x: 2, y: -346}
+  m_SizeDelta: {x: 660, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1847920168
 MonoBehaviour:
@@ -39059,7 +39074,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 660, y: 25}
+  m_Size: {x: 660, y: 28}
   m_EdgeRadius: 0
 --- !u!1 &1854141028
 GameObject:

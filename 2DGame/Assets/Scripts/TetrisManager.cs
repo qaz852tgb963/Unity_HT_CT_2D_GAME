@@ -36,8 +36,8 @@ public class TetrisManager : MonoBehaviour
     public RectTransform RTFInstant;
     [Header("生成的方塊位置")]
     public Vector2[] V2Block_L = {
-        new Vector2(0,375),
-        new Vector2(0,375),
+        new Vector2(0,360),
+        new Vector2(0,360),
         new Vector2(15,360),
         new Vector2(15,360),
         new Vector2(0,375),
@@ -109,7 +109,8 @@ public class TetrisManager : MonoBehaviour
             }
             #endregion
 
-            if (RTFInstant.anchoredPosition.y <= -300)
+            //if (RTFInstant.anchoredPosition.y <= -300)
+            if (TetBlock.bHitFloor)
             {
                 StartGame();
             }
