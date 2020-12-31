@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class TetrisManager : MonoBehaviour
 {
@@ -27,8 +28,8 @@ public class TetrisManager : MonoBehaviour
 
     [Header("下一顆")]
     public Transform traNext;
-    [Header("畫布")]
-    public Transform traCanvas;
+    [Header("方塊的父物件")]
+    public Transform traBlockParent;
 
     public int iNextIndex;
 
@@ -59,6 +60,11 @@ public class TetrisManager : MonoBehaviour
     private void Update()
     {
         CtrlBlock();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            StartCoroutine(ShockScreen());
+        }
     }
 
     #endregion
@@ -124,7 +130,7 @@ public class TetrisManager : MonoBehaviour
     public void StartGame()
     {
         GameObject GOIndex = traNext.GetChild(iNextIndex).gameObject;
-        GameObject GOInstant = Instantiate(GOIndex, traCanvas);
+        GameObject GOInstant = Instantiate(GOIndex, traBlockParent);
         GOInstant.GetComponent<RectTransform>().anchoredPosition = V2Block_L[iNextIndex];
         GOIndex.SetActive(false);
         GenerateBlock();
@@ -182,6 +188,21 @@ public class TetrisManager : MonoBehaviour
     public void LeaveGame()
     {
 
+    }
+
+
+
+    private IEnumerator ShockScreen()
+    {
+        RectTransform rect = traBlockParent.GetComponent<RectTransform>();
+
+        rect.anchoredPosition += Vector2.one * 30;
+        yield return new WaitForSeconds(0.09f);
+        rect.anchoredPosition = Vector2.zero;
+        yield return new WaitForSeconds(0.09f);
+        rect.anchoredPosition += Vector2.one * 20;
+        yield return new WaitForSeconds(0.09f);
+        rect.anchoredPosition = Vector2.zero;
     }
     #endregion
 }
