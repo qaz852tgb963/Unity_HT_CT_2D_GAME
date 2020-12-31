@@ -254,6 +254,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   length0: 0.8
   length90: 0.5
+  offsetX: 15
+  offsetY: 15
+  lengthCtrl0R: 0
+  lengthCtrl0L: 0
+  lengthCtrl90R: 0.5
+  lengthCtrl90L: 0
+  length_Wall_NOW: 0
+  length_Floor_NOW: 0
+  length_CtrlR_NOW: 0
+  length_CtrlL_NOW: 0
+  bHitWallRight: 0
+  bHitWallLeft: 0
+  bHitFloor: 0
+  bCanCtrl: 1
 --- !u!1 &5924706233666578355
 GameObject:
   m_ObjectHideFlags: 0

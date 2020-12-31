@@ -80,24 +80,25 @@ public class TetrisManager : MonoBehaviour
             #region 控制按鍵
             Tetris TetBlock = RTFInstant.GetComponent<Tetris>();
 
-            //if (RTFInstant.anchoredPosition.x < 225)
             if (TetBlock.bHitWallRight == false)
                 if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     RTFInstant.anchoredPosition += new Vector2(iMinCtrl, 0);
                 }
 
-            //if (RTFInstant.anchoredPosition.x > -225)
             if (TetBlock.bHitWallLeft == false)
                 if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
                     RTFInstant.anchoredPosition -= new Vector2(iMinCtrl, 0);
                 }
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                RTFInstant.eulerAngles += new Vector3(0, 0, 90);
-            }
+            if (TetBlock.bCanCtrl)
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+                {
+                    RTFInstant.eulerAngles += new Vector3(0, 0, 90);
+
+                    TetBlock.offset();
+                }
 
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
@@ -137,6 +138,8 @@ public class TetrisManager : MonoBehaviour
     private void GenerateBlock()
     {
         iNextIndex = Random.Range(0, 7);
+
+        iNextIndex = 6;
         traNext.GetChild(iNextIndex).gameObject.SetActive(true);
     }
 
