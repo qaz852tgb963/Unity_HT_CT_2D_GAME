@@ -90,13 +90,13 @@ public class TetrisManager : MonoBehaviour
             #region 控制按鍵
             Tetris TetBlock = RTFInstant.GetComponent<Tetris>();
 
-            if (TetBlock.bHitWallRight == false)
+            if (TetBlock.bHitWallRight == false && !TetBlock.bRightBlock)
                 if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     RTFInstant.anchoredPosition += new Vector2(iMinCtrl, 0);
                 }
 
-            if (TetBlock.bHitWallLeft == false)
+            if (TetBlock.bHitWallLeft == false && !TetBlock.bLeftBlock)
                 if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
                     RTFInstant.anchoredPosition -= new Vector2(iMinCtrl, 0);
@@ -121,7 +121,7 @@ public class TetrisManager : MonoBehaviour
             #endregion
 
             //if (RTFInstant.anchoredPosition.y <= -300)
-            if (TetBlock.bHitFloor)
+            if (TetBlock.bHitFloor || TetBlock.bDownBlock)
             {
                 SetGround();
                 StartCoroutine(ShockScreen());
@@ -139,8 +139,8 @@ public class TetrisManager : MonoBehaviour
         for (int x = 0; x < iChildCount; x++)
         {
             var Loop = RTFInstant.GetChild(x);
-            Loop.name = "地板";
-            Loop.gameObject.layer = 12;
+            Loop.name = "方塊";
+            Loop.gameObject.layer = 13;
         }
     }
 

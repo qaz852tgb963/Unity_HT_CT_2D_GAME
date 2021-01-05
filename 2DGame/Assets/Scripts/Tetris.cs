@@ -2,6 +2,8 @@
 
 public class Tetris : MonoBehaviour
 {
+    #region 屬性
+
     [Header("各角度，長度")]
     public float length0;
     public float length90;
@@ -30,7 +32,18 @@ public class Tetris : MonoBehaviour
     [Header("是否旋轉")]
     public bool bCanCtrl = true;
 
+    [Header("每一個向下的射線")]
+    public float EveryDwonLine = 0.5f;
+    public bool bDownBlock;
+    public bool bLeftBlock;
+    public bool bRightBlock;
+
+    //私密
     private RectTransform rect;
+
+    #endregion
+
+    #region 方法
 
     public void CheckWall()
     {
@@ -40,7 +53,7 @@ public class Tetris : MonoBehaviour
 
         RaycastHit2D CtrlHitRgiht = Physics2D.Raycast(transform.position, Vector3.right, length_CtrlR_NOW, 1 << 11);
         RaycastHit2D CtrlHitLeft = Physics2D.Raycast(transform.position, Vector3.left, length_CtrlL_NOW, 1 << 11);
-        
+
         if (HitRgiht && HitRgiht.transform.name == "牆壁_右")
         {
             bHitWallRight = true;
@@ -68,8 +81,8 @@ public class Tetris : MonoBehaviour
         {
             bHitFloor = false;
         }
-        
-        if (CtrlHitRgiht && CtrlHitRgiht.transform.name == "牆壁_右"||
+
+        if (CtrlHitRgiht && CtrlHitRgiht.transform.name == "牆壁_右" ||
             CtrlHitLeft && CtrlHitLeft.transform.name == "牆壁_左")
         {
             bCanCtrl = false;
@@ -77,6 +90,54 @@ public class Tetris : MonoBehaviour
         else
         {
             bCanCtrl = true;
+        }
+    }
+
+    public void CheckDownBlock()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var Loop = transform.GetChild(i);
+            RaycastHit2D HitDownBlock = Physics2D.Raycast(Loop.position, Vector3.down, EveryDwonLine, 1 << 13);
+
+            bDownBlock = false;
+            if (HitDownBlock && HitDownBlock.transform.name == "方塊")
+            {
+                bDownBlock = true;
+                break;
+            }
+        }
+    }
+
+    public void CheckLeftBlock()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var Loop = transform.GetChild(i);
+            RaycastHit2D HitLeftBlock = Physics2D.Raycast(Loop.position, Vector3.left, EveryDwonLine, 1 << 13);
+
+            bLeftBlock = false;
+            if (HitLeftBlock && HitLeftBlock.transform.name == "方塊")
+            {
+                bLeftBlock = true;
+                break;
+            }
+        }
+    }
+
+    public void CheckRightBlock()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var Loop = transform.GetChild(i);
+            RaycastHit2D HitRightBlock = Physics2D.Raycast(Loop.position, Vector3.right, EveryDwonLine, 1 << 13);
+
+            bRightBlock = false;
+            if (HitRightBlock && HitRightBlock.transform.name == "方塊")
+            {
+                bRightBlock = true;
+                break;
+            }
         }
     }
 
@@ -95,13 +156,30 @@ public class Tetris : MonoBehaviour
 
     }
 
+    #endregion
 
+    #region 事件
 
+    private void Start()
+    {
+        length_Wall_NOW = length0;
+        length_Floor_NOW = length90;
+        length_CtrlR_NOW = lengthCtrl0R;
+        length_CtrlL_NOW = lengthCtrl0L;
 
+        rect = GetComponent<RectTransform>();
+    }
+
+    private void Update()
+    {
+        CheckWall();
+        CheckDownBlock();
+        CheckLeftBlock();
+        CheckRightBlock();
+    }
 
     private void OnDrawGizmos()
     {
-
         #region 畫出輔助線
 
         int iAngles = (int)transform.eulerAngles.z;
@@ -134,22 +212,18 @@ public class Tetris : MonoBehaviour
 
         #endregion
 
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var Loop = transform.GetChild(i);
 
+            Gizmos.color = Color.white;
+            Gizmos.DrawRay(Loop.position, Vector3.down * EveryDwonLine);
+            Gizmos.color = Color.white;
+            Gizmos.DrawRay(Loop.position, Vector3.right * EveryDwonLine);
+            Gizmos.color = Color.white;
+            Gizmos.DrawRay(Loop.position, Vector3.left * EveryDwonLine);
+        }
     }
 
-
-    private void Start()
-    {
-        length_Wall_NOW = length0;
-        length_Floor_NOW = length90;
-        length_CtrlR_NOW = lengthCtrl0R;
-        length_CtrlL_NOW = lengthCtrl0L;
-
-        rect = GetComponent<RectTransform>();
-    }
-
-    private void Update()
-    {
-        CheckWall();
-    }
+    #endregion
 }
