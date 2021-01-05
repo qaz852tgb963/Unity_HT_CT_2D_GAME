@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length0: 0.8
-  length90: 0.5
+  length90: 0.58
   offsetX: 15
   offsetY: 15
   lengthCtrl0R: 0

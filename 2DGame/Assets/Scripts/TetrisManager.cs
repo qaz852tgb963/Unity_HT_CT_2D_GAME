@@ -47,7 +47,8 @@ public class TetrisManager : MonoBehaviour
     };
 
     public float timer;
-    int iMinCtrl = 30;
+    private int iMinCtrl = 30;
+    private bool bFastDown;
     #endregion
 
     #region 事件
@@ -60,10 +61,13 @@ public class TetrisManager : MonoBehaviour
     private void Update()
     {
         CtrlBlock();
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (RTFInstant && !bFastDown)
         {
-            StartCoroutine(ShockScreen());
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                iSpeed = 0.017f;
+                bFastDown = true;
+            }
         }
     }
 
@@ -105,30 +109,47 @@ public class TetrisManager : MonoBehaviour
 
                     TetBlock.offset();
                 }
-
-            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            {
-                iSpeed = 0.2f;
-            }
-            else
-            {
-                iSpeed = 1.5f;
-            }
+            if (!bFastDown)
+                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+                {
+                    iSpeed = 0.2f;
+                }
+                else
+                {
+                    iSpeed = 1.5f;
+                }
             #endregion
 
             //if (RTFInstant.anchoredPosition.y <= -300)
             if (TetBlock.bHitFloor)
             {
-                StartGame();
+                SetGround();
+                StartCoroutine(ShockScreen());
+                ResetGame();
             }
         }
     }
 
     /// <summary>
-    /// 開始遊戲
+    /// 設為地板
     /// </summary>
-    public void StartGame()
+    public void SetGround()
     {
+        int iChildCount = RTFInstant.childCount;
+        for (int x = 0; x < iChildCount; x++)
+        {
+            var Loop = RTFInstant.GetChild(x);
+            Loop.name = "地板";
+            Loop.gameObject.layer = 12;
+        }
+    }
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    public void ResetGame()
+    {
+        bFastDown = false;
         GameObject GOIndex = traNext.GetChild(iNextIndex).gameObject;
         GameObject GOInstant = Instantiate(GOIndex, traBlockParent);
         GOInstant.GetComponent<RectTransform>().anchoredPosition = V2Block_L[iNextIndex];
@@ -144,8 +165,6 @@ public class TetrisManager : MonoBehaviour
     private void GenerateBlock()
     {
         iNextIndex = Random.Range(0, 7);
-
-        iNextIndex = 6;
         traNext.GetChild(iNextIndex).gameObject.SetActive(true);
     }
 

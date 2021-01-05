@@ -9110,7 +9110,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1629700759}
-        m_MethodName: StartGame
+        m_MethodName: ResetGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10040,16 +10040,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983937520}
     m_Modifications:
-    - target: {fileID: 3116508276631463499, guid: a00f2a1792b464b4697b2a88c8132a70,
-        type: 3}
-      propertyPath: length0
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3116508276631463499, guid: a00f2a1792b464b4697b2a88c8132a70,
-        type: 3}
-      propertyPath: length90
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5924706233544424885, guid: a00f2a1792b464b4697b2a88c8132a70,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14863,11 +14853,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983937520}
     m_Modifications:
-    - target: {fileID: -2549208713857505394, guid: 1553237a08d8ad140bca47eac7441143,
-        type: 3}
-      propertyPath: length0
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 3846133837329954236, guid: 1553237a08d8ad140bca47eac7441143,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35062,11 +35047,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983937520}
     m_Modifications:
-    - target: {fileID: -1174873776414079243, guid: 7f3223ba564db794b9df068f29408e29,
-        type: 3}
-      propertyPath: length0
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 8314616534970833500, guid: 7f3223ba564db794b9df068f29408e29,
         type: 3}
       propertyPath: m_Name
