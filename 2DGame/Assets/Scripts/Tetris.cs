@@ -95,12 +95,12 @@ public class Tetris : MonoBehaviour
 
     public void CheckDownBlock()
     {
+        bDownBlock = false;
         for (int i = 0; i < transform.childCount; i++)
         {
             var Loop = transform.GetChild(i);
             RaycastHit2D HitDownBlock = Physics2D.Raycast(Loop.position, Vector3.down, EveryDwonLine, 1 << 13);
 
-            bDownBlock = false;
             if (HitDownBlock && HitDownBlock.transform.name == "方塊")
             {
                 bDownBlock = true;
@@ -111,12 +111,12 @@ public class Tetris : MonoBehaviour
 
     public void CheckLeftBlock()
     {
+        bLeftBlock = false;
         for (int i = 0; i < transform.childCount; i++)
         {
             var Loop = transform.GetChild(i);
             RaycastHit2D HitLeftBlock = Physics2D.Raycast(Loop.position, Vector3.left, EveryDwonLine, 1 << 13);
 
-            bLeftBlock = false;
             if (HitLeftBlock && HitLeftBlock.transform.name == "方塊")
             {
                 bLeftBlock = true;
@@ -127,12 +127,12 @@ public class Tetris : MonoBehaviour
 
     public void CheckRightBlock()
     {
+        bRightBlock = false;
         for (int i = 0; i < transform.childCount; i++)
         {
             var Loop = transform.GetChild(i);
             RaycastHit2D HitRightBlock = Physics2D.Raycast(Loop.position, Vector3.right, EveryDwonLine, 1 << 13);
 
-            bRightBlock = false;
             if (HitRightBlock && HitRightBlock.transform.name == "方塊")
             {
                 bRightBlock = true;

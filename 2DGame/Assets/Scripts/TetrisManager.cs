@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class TetrisManager : MonoBehaviour
@@ -30,6 +31,10 @@ public class TetrisManager : MonoBehaviour
     public Transform traNext;
     [Header("方塊的父物件")]
     public Transform traBlockParent;
+    [Header("分數判定區塊")]
+    public Transform traScore;
+    [Header("方塊陣列")]
+    public RectTransform[] rtraBlock_L;
 
     public int iNextIndex;
 
@@ -37,8 +42,8 @@ public class TetrisManager : MonoBehaviour
     public RectTransform RTFInstant;
     [Header("生成的方塊位置")]
     public Vector2[] V2Block_L = {
-        new Vector2(0,360),
-        new Vector2(0,360),
+        new Vector2(15,360),
+        new Vector2(15,360),
         new Vector2(15,360),
         new Vector2(15,360),
         new Vector2(0,375),
@@ -124,6 +129,7 @@ public class TetrisManager : MonoBehaviour
             if (TetBlock.bHitFloor || TetBlock.bDownBlock)
             {
                 SetGround();
+                CheckBlock();
                 StartCoroutine(ShockScreen());
                 ResetGame();
             }
@@ -136,12 +142,37 @@ public class TetrisManager : MonoBehaviour
     public void SetGround()
     {
         int iChildCount = RTFInstant.childCount;
+
         for (int x = 0; x < iChildCount; x++)
         {
             var Loop = RTFInstant.GetChild(x);
             Loop.name = "方塊";
             Loop.gameObject.layer = 13;
         }
+
+        for (int x = 0; x < iChildCount; x++)
+        {
+            RTFInstant.GetChild(0).SetParent(traScore);
+        }
+        Destroy(RTFInstant.gameObject);
+    }
+
+    public void CheckBlock()
+    {
+        int iCount = traScore.childCount;
+        rtraBlock_L = new RectTransform[iCount];
+
+        for (int i = 0; i < iCount; i++)
+        {
+            rtraBlock_L[i] = traScore.GetChild(i).GetComponent<RectTransform>();
+        }
+        foreach (var Loop in rtraBlock_L)
+        {
+        print(Loop.anchoredPosition.y);
+
+        }
+        print("315 "+rtraBlock_L.Where(t => t.anchoredPosition.y == -315f).Count());
+        //print("285 "+rtraBlock_L.Where(t => t.anchoredPosition.y == -285).Count());
     }
 
     /// <summary>
@@ -165,6 +196,7 @@ public class TetrisManager : MonoBehaviour
     private void GenerateBlock()
     {
         iNextIndex = Random.Range(0, 7);
+        iNextIndex = 0;
         traNext.GetChild(iNextIndex).gameObject.SetActive(true);
     }
 
