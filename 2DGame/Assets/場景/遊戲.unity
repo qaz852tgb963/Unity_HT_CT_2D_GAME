@@ -26187,7 +26187,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7B49\u7D1A\uFF1A99"
+  m_Text: "\u7B49\u7D1A\uFF1A1"
 --- !u!222 &1264169478
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34389,6 +34389,9 @@ MonoBehaviour:
   - {x: 15, y: 360}
   - {x: 0, y: 360}
   timer: 0
+  downHight: []
+  sScoreText: {fileID: 1748285715}
+  sLevelText: {fileID: 1264169477}
 --- !u!4 &1629700760
 Transform:
   m_ObjectHideFlags: 0
@@ -36431,7 +36434,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5206\u6578\uFF1A99999"
+  m_Text: "\u5206\u6578\uFF1A0"
 --- !u!222 &1748285716
 CanvasRenderer:
   m_ObjectHideFlags: 0

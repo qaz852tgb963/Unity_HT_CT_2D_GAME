@@ -125,7 +125,7 @@ public class TetrisManager : MonoBehaviour
                 }
                 else
                 {
-                    iSpeed = 1.5f;
+                    iSpeed = fallSpeedMax;
                 }
             #endregion
 
@@ -179,6 +179,7 @@ public class TetrisManager : MonoBehaviour
             {
                 yield return StartCoroutine(Shine(CheckRow));
                 destryRow[i] = true;
+                AddScore(100);
             }
             else
                 destryRow[i] = false;
@@ -194,7 +195,7 @@ public class TetrisManager : MonoBehaviour
 
             for (int j = 0; j < rtraBlock_L.Length; j++)
             {
-                if (rtraBlock_L[j].anchoredPosition.y >= (bottom + iMinCtrl * i - iSmallRL) )
+                if (rtraBlock_L[j].anchoredPosition.y >= (bottom + iMinCtrl * i - iSmallRL))
                 {
                     downHight[j] -= iMinCtrl;
                 }
@@ -234,13 +235,25 @@ public class TetrisManager : MonoBehaviour
         traNext.GetChild(iNextIndex).gameObject.SetActive(true);
     }
 
+    public Text sScoreText;
+    public Text sLevelText;
+    public float fallSpeedMax= 1.5f;
+
     /// <summary>
     /// 添加分數
     /// </summary>
     /// <param name="iScore">增加的分數</param>
     public void AddScore(int iScore)
     {
+        iNowScore += iScore;
+        sScoreText.text = "分數：" + iNowScore;
 
+        iLevel = 1 + iNowScore / 1000;
+        sLevelText.text = "等級：" + iLevel;
+
+        fallSpeedMax = 1.5f - iLevel / 10;
+        fallSpeedMax = Mathf.Clamp(fallSpeedMax, 0.2f, 99f);
+        iSpeed = fallSpeedMax;
     }
 
     /// <summary>
@@ -264,7 +277,7 @@ public class TetrisManager : MonoBehaviour
     /// </summary>
     public void ReplayGame()
     {
-
+        ResetGame();
     }
 
     /// <summary>
@@ -272,7 +285,7 @@ public class TetrisManager : MonoBehaviour
     /// </summary>
     public void LeaveGame()
     {
-
+        Application.Quit();
     }
 
 
