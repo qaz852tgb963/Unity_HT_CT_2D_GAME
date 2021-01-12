@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TetrisManager : MonoBehaviour
 {
@@ -53,7 +54,10 @@ public class TetrisManager : MonoBehaviour
 
     public float timer;
     private int iMinCtrl = 30;
+    private const int iMaxRow = 23;
     private bool bFastDown;
+    private bool[] destryRow = new bool[iMaxRow];
+    public float[] downHight;
     #endregion
 
     #region 事件
@@ -70,7 +74,7 @@ public class TetrisManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                iSpeed = 0.017f;
+                iSpeed = 0.018f;
                 bFastDown = true;
             }
         }
@@ -129,7 +133,7 @@ public class TetrisManager : MonoBehaviour
             if (TetBlock.bHitFloor || TetBlock.bDownBlock)
             {
                 SetGround();
-                CheckBlock();
+                StartCoroutine(CheckBlock());
                 StartCoroutine(ShockScreen());
                 ResetGame();
             }
@@ -157,7 +161,7 @@ public class TetrisManager : MonoBehaviour
         Destroy(RTFInstant.gameObject);
     }
 
-    public void CheckBlock()
+    public IEnumerator CheckBlock()
     {
         int iCount = traScore.childCount;
         rtraBlock_L = new RectTransform[iCount];
@@ -166,13 +170,44 @@ public class TetrisManager : MonoBehaviour
         {
             rtraBlock_L[i] = traScore.GetChild(i).GetComponent<RectTransform>();
         }
-        foreach (var Loop in rtraBlock_L)
+        int bottom = -315;
+        int iSmallRL = 5;//正負範圍
+        for (int i = 0; i < iMaxRow; i++)
         {
-        print(Loop.anchoredPosition.y);
-
+            var CheckRow = rtraBlock_L.Where(t => t.anchoredPosition.y >= (bottom + iMinCtrl * i - iSmallRL) && t.anchoredPosition.y <= (bottom + iMinCtrl * i + iSmallRL)).ToArray();
+            if (CheckRow.Count() == 18)
+            {
+                yield return StartCoroutine(Shine(CheckRow));
+                destryRow[i] = true;
+            }
+            else
+                destryRow[i] = false;
         }
-        print("315 "+rtraBlock_L.Where(t => t.anchoredPosition.y == -315f).Count());
-        //print("285 "+rtraBlock_L.Where(t => t.anchoredPosition.y == -285).Count());
+
+        downHight = new float[traScore.childCount];
+        for (int i = 0; i < downHight.Length; i++) downHight[i] = 0;
+
+
+        for (int i = 0; i < destryRow.Length; i++)
+        {
+            if (!destryRow[i]) continue;
+
+            for (int j = 0; j < rtraBlock_L.Length; j++)
+            {
+                if (rtraBlock_L[j].anchoredPosition.y >= (bottom + iMinCtrl * i - iSmallRL) )
+                {
+                    downHight[j] -= iMinCtrl;
+                }
+            }
+
+            destryRow[i] = false;
+        }
+
+        for (int i = 0; i < rtraBlock_L.Length; i++)
+        {
+            rtraBlock_L[i].anchoredPosition += Vector2.up * downHight[i];
+        }
+
     }
 
     /// <summary>
@@ -196,7 +231,6 @@ public class TetrisManager : MonoBehaviour
     private void GenerateBlock()
     {
         iNextIndex = Random.Range(0, 7);
-        iNextIndex = 0;
         traNext.GetChild(iNextIndex).gameObject.SetActive(true);
     }
 
@@ -254,6 +288,29 @@ public class TetrisManager : MonoBehaviour
         rect.anchoredPosition += Vector2.one * 20;
         yield return new WaitForSeconds(0.09f);
         rect.anchoredPosition = Vector2.zero;
+    }
+
+    private IEnumerator Shine(RectTransform[] smalls)
+    {
+        float interval = 0.5f;
+        for (int i = 0; i < 18; i++) smalls[i].GetComponent<Image>().enabled = false;
+        yield return new WaitForSeconds(interval);
+        for (int i = 0; i < 18; i++) smalls[i].GetComponent<Image>().enabled = true;
+        yield return new WaitForSeconds(interval);
+        for (int i = 0; i < 18; i++) smalls[i].GetComponent<Image>().enabled = false;
+        yield return new WaitForSeconds(interval);
+        for (int i = 0; i < 18; i++) smalls[i].GetComponent<Image>().enabled = true;
+        yield return new WaitForSeconds(interval);
+
+        for (int i = 0; i < 18; i++) Destroy(smalls[i].gameObject);
+        yield return new WaitForSeconds(interval);
+
+        int iCount = traScore.childCount;
+        rtraBlock_L = new RectTransform[iCount];
+        for (int i = 0; i < iCount; i++)
+        {
+            rtraBlock_L[i] = traScore.GetChild(i).GetComponent<RectTransform>();
+        }
     }
     #endregion
 }

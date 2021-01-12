@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length0: 0.5
-  length90: 0.58
+  length90: 0.59
   offsetX: 0
   offsetY: 0
   lengthCtrl0R: 0
@@ -61,13 +61,17 @@ MonoBehaviour:
   lengthCtrl90R: 0
   lengthCtrl90L: 0
   length_Wall_NOW: 0.5
-  length_Floor_NOW: 0.58
+  length_Floor_NOW: 0.59
   length_CtrlR_NOW: 0
   length_CtrlL_NOW: 0
   bHitWallRight: 0
   bHitWallLeft: 0
   bHitFloor: 0
   bCanCtrl: 1
+  EveryDwonLine: 0.5
+  bDownBlock: 0
+  bLeftBlock: 0
+  bRightBlock: 0
 --- !u!1 &3498716030359436792
 GameObject:
   m_ObjectHideFlags: 0
