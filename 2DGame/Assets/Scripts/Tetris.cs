@@ -172,10 +172,35 @@ public class Tetris : MonoBehaviour
 
     private void Update()
     {
+        settingLen();
         CheckWall();
         CheckDownBlock();
         CheckLeftBlock();
         CheckRightBlock();
+    }
+
+    private void settingLen()
+    {
+        #region 畫出輔助線
+
+        int iAngles = (int)transform.eulerAngles.z;
+
+        if (iAngles == 0 || iAngles == 180)
+        {
+            length_Wall_NOW = length0;
+            length_Floor_NOW = length90;
+            length_CtrlR_NOW = lengthCtrl0R;
+            length_CtrlL_NOW = lengthCtrl0L;
+        }
+        else if (iAngles == 90 || iAngles == 270)
+        {
+            length_Wall_NOW = length90;
+            length_Floor_NOW = length0;
+            length_CtrlR_NOW = lengthCtrl90R;
+            length_CtrlL_NOW = lengthCtrl90L;
+        }
+        
+        #endregion
     }
 
     private void OnDrawGizmos()

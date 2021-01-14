@@ -1648,7 +1648,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 868979453}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9108,7 +9108,7 @@ RectTransform:
   m_Children:
   - {fileID: 1229186830}
   m_Father: {fileID: 634869034}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9984,7 +9984,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6700\u9AD8\u5206\u6578\uFF1A99999"
+  m_Text: "\u6700\u9AD8\u5206\u6578\uFF1A0"
 --- !u!222 &471745565
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11064,7 +11064,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u76EE\u524D\u5206\u6578\uFF1A99999"
+  m_Text: "\u76EE\u524D\u5206\u6578\uFF1A0"
 --- !u!222 &526028941
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13120,6 +13120,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 868979453}
+  - {fileID: 796886973}
   - {fileID: 439234975}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -17642,8 +17643,8 @@ RectTransform:
   - {fileID: 845849632}
   - {fileID: 2022127701}
   - {fileID: 827317052}
-  m_Father: {fileID: 868979453}
-  m_RootOrder: 5
+  m_Father: {fileID: 634869034}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18140,7 +18141,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.5921569, g: 0.5803922, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -18161,7 +18162,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 827317054}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1629700759}
+        m_MethodName: LeaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &827317054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19003,7 +19015,6 @@ RectTransform:
   - {fileID: 1748285714}
   - {fileID: 743179323}
   - {fileID: 1264169476}
-  - {fileID: 796886973}
   - {fileID: 1018268706}
   - {fileID: 1983937520}
   - {fileID: 1798796612}
@@ -20749,7 +20760,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 868979453}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -31527,7 +31538,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 868979453}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -34369,11 +34380,12 @@ MonoBehaviour:
   iNowScore: 0
   iHighestScore: 0
   iLevel: 1
-  gGameOver: {fileID: 0}
-  aDownAudio: {fileID: 0}
-  aLeftRightAudio: {fileID: 0}
-  aClearAudio: {fileID: 0}
-  aGameOverAudio: {fileID: 0}
+  gGameOver: {fileID: 796886972}
+  aDownAudio: {fileID: 8300000, guid: 15bbd87798346ee48ac81f8ae3ca03e2, type: 3}
+  aLeftRightAudio: {fileID: 8300000, guid: e20751eb2e727b74fa20397902ea87b6, type: 3}
+  aUpAudio: {fileID: 8300000, guid: 96b097693f3e86848aff879db2d54075, type: 3}
+  aClearAudio: {fileID: 8300000, guid: 7e26bfb228485684fad3bca9035c9de3, type: 3}
+  aGameOverAudio: {fileID: 8300000, guid: 9332b655d6afcf24b9383f28fec9a144, type: 3}
   traNext: {fileID: 1983937520}
   traBlockParent: {fileID: 868979453}
   traScore: {fileID: 67533891}
@@ -34390,8 +34402,11 @@ MonoBehaviour:
   - {x: 0, y: 360}
   timer: 0
   downHight: []
+  tNowScore: {fileID: 526028940}
+  tHightScore: {fileID: 471745564}
   sScoreText: {fileID: 1748285715}
   sLevelText: {fileID: 1264169477}
+  fallSpeedMax: 1.5
 --- !u!4 &1629700760
 Transform:
   m_ObjectHideFlags: 0
@@ -37674,7 +37689,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 868979453}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -39074,7 +39089,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 868979453}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -41880,7 +41895,7 @@ RectTransform:
   - {fileID: 475757687}
   - {fileID: 803580894}
   m_Father: {fileID: 868979453}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -42583,9 +42598,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.58869964, g: 0.5801887, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0.995283, b: 0.995283, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -42604,7 +42619,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2022127703}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1629700759}
+        m_MethodName: ReplayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2022127703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45062,7 +45088,7 @@ RectTransform:
   - {fileID: 1104539698}
   - {fileID: 101650154}
   m_Father: {fileID: 868979453}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

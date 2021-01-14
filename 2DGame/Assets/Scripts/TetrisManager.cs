@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TetrisManager : MonoBehaviour
 {
@@ -22,9 +23,10 @@ public class TetrisManager : MonoBehaviour
     [Header("結束畫面")]
     public GameObject gGameOver;
 
-    [Header("音效：掉落、移動、清除、結束")]
+    [Header("音效：掉落、移動、旋轉、清除、結束")]
     public AudioClip aDownAudio;
     public AudioClip aLeftRightAudio;
+    public AudioClip aUpAudio;
     public AudioClip aClearAudio;
     public AudioClip aGameOverAudio;
 
@@ -55,21 +57,46 @@ public class TetrisManager : MonoBehaviour
     public float timer;
     private int iMinCtrl = 30;
     private const int iMaxRow = 23;
+    private int top = 375;
+    private int bottom = -315;
+    private int iSmallRL = 5;//正負範圍
     private bool bFastDown;
     private bool[] destryRow = new bool[iMaxRow];
     public float[] downHight;
+
+    /// <summary>
+    /// 是否遊戲結束
+    /// </summary>
+    private bool bGameOver;
+
+    private AudioSource Aud;
+
+    public Text tNowScore;
+    public Text tHightScore;
+
     #endregion
 
     #region 事件
 
     private void Start()
     {
+        Aud = GetComponent<AudioSource>();
         GenerateBlock();
     }
 
     private void Update()
     {
+        if (bGameOver) return;
         CtrlBlock();
+        FastDown();
+    }
+
+    #endregion
+
+    #region 方法
+
+    public void FastDown()
+    {
         if (RTFInstant && !bFastDown)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -79,10 +106,6 @@ public class TetrisManager : MonoBehaviour
             }
         }
     }
-
-    #endregion
-
-    #region 方法
 
     public void CtrlBlock()
     {
@@ -102,18 +125,21 @@ public class TetrisManager : MonoBehaviour
             if (TetBlock.bHitWallRight == false && !TetBlock.bRightBlock)
                 if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
+                    Aud.PlayOneShot(aLeftRightAudio, Random.Range(0.8f, 1.2f));
                     RTFInstant.anchoredPosition += new Vector2(iMinCtrl, 0);
                 }
 
             if (TetBlock.bHitWallLeft == false && !TetBlock.bLeftBlock)
                 if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
+                    Aud.PlayOneShot(aLeftRightAudio, Random.Range(0.8f, 1.2f));
                     RTFInstant.anchoredPosition -= new Vector2(iMinCtrl, 0);
                 }
 
             if (TetBlock.bCanCtrl)
                 if (Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
                 {
+                    Aud.PlayOneShot(aUpAudio, Random.Range(0.8f, 1.2f));
                     RTFInstant.eulerAngles += new Vector3(0, 0, 90);
 
                     TetBlock.offset();
@@ -145,6 +171,8 @@ public class TetrisManager : MonoBehaviour
     /// </summary>
     public void SetGround()
     {
+        Aud.PlayOneShot(aDownAudio, Random.Range(0.8f, 1.2f));
+
         int iChildCount = RTFInstant.childCount;
 
         for (int x = 0; x < iChildCount; x++)
@@ -169,14 +197,18 @@ public class TetrisManager : MonoBehaviour
         for (int i = 0; i < iCount; i++)
         {
             rtraBlock_L[i] = traScore.GetChild(i).GetComponent<RectTransform>();
+
+            float y = rtraBlock_L[i].anchoredPosition.y;
+            if (y <= top + 20 && y >= top - 20) GameOver();
         }
-        int bottom = -315;
-        int iSmallRL = 5;//正負範圍
+
         for (int i = 0; i < iMaxRow; i++)
         {
             var CheckRow = rtraBlock_L.Where(t => t.anchoredPosition.y >= (bottom + iMinCtrl * i - iSmallRL) && t.anchoredPosition.y <= (bottom + iMinCtrl * i + iSmallRL)).ToArray();
             if (CheckRow.Count() == 18)
             {
+                Aud.PlayOneShot(aClearAudio, Random.Range(0.8f, 1.2f));
+
                 yield return StartCoroutine(Shine(CheckRow));
                 destryRow[i] = true;
                 AddScore(100);
@@ -237,7 +269,7 @@ public class TetrisManager : MonoBehaviour
 
     public Text sScoreText;
     public Text sLevelText;
-    public float fallSpeedMax= 1.5f;
+    public float fallSpeedMax = 1.5f;
 
     /// <summary>
     /// 添加分數
@@ -269,7 +301,23 @@ public class TetrisManager : MonoBehaviour
     /// </summary>
     private void GameOver()
     {
+        if (!bGameOver)
+        {
+            Aud.PlayOneShot(aGameOverAudio, Random.Range(0.8f, 1.2f));
 
+            bGameOver = true;
+            StopAllCoroutines();
+            gGameOver.SetActive(true);
+
+            tNowScore.text = "目前分數：" + iNowScore;
+
+            if (iNowScore > PlayerPrefs.GetInt("最高分數"))
+            {
+                PlayerPrefs.SetInt("最高分數", iNowScore);
+                tHightScore.text = "最高分數：" + iNowScore;
+            }
+            else tHightScore.text = "最高分數：" + PlayerPrefs.GetInt("最高分數");
+        }
     }
 
     /// <summary>
@@ -277,7 +325,7 @@ public class TetrisManager : MonoBehaviour
     /// </summary>
     public void ReplayGame()
     {
-        ResetGame();
+        SceneManager.LoadScene("遊戲");
     }
 
     /// <summary>
@@ -305,7 +353,7 @@ public class TetrisManager : MonoBehaviour
 
     private IEnumerator Shine(RectTransform[] smalls)
     {
-        float interval = 0.5f;
+        float interval = 0.1f;
         for (int i = 0; i < 18; i++) smalls[i].GetComponent<Image>().enabled = false;
         yield return new WaitForSeconds(interval);
         for (int i = 0; i < 18; i++) smalls[i].GetComponent<Image>().enabled = true;
