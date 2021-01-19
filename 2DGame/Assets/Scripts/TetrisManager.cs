@@ -101,7 +101,7 @@ public class TetrisManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                iSpeed = 0.018f;
+                iSpeed = 0.02f;
                 bFastDown = true;
             }
         }
