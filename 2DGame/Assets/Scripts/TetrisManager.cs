@@ -59,7 +59,7 @@ public class TetrisManager : MonoBehaviour
     private const int iMaxRow = 23;
     private int top = 375;
     private int bottom = -315;
-    private int iSmallRL = 5;//正負範圍
+    private int iSmallRL = 10;//正負範圍
     private bool bFastDown;
     private bool[] destryRow = new bool[iMaxRow];
     public float[] downHight;
